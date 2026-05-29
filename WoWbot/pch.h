@@ -9,5 +9,7 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
+#include <spdlog/spdlog.h>
+#include <detours/detours.h>
 
 #endif //PCH_H

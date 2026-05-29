@@ -1,7 +1,6 @@
 <Solution>
   <Configurations>
-    <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="WoWbot/WoWbot.vcxproj" />
+  <Project Path="WoWbot/WoWbot.vcxproj" Id="d38ce6c0-fdef-45a4-ac6a-471315b88848" />
 </Solution>
