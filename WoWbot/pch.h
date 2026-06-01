@@ -9,7 +9,11 @@
 
 // add headers that you want to pre-compile here
 #include "framework.h"
-#include <spdlog/spdlog.h>
+
 #include <detours/detours.h>
+#include <spdlog/spdlog.h>
+
+#pragma comment(lib, "d3d9.lib")
+#include <d3d9.h>
 
 #endif //PCH_H
