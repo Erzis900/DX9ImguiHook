@@ -30,6 +30,15 @@
     <ClInclude Include="Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="backends\imgui_impl_dx9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="backends\imgui_impl_win32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu\Menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -45,6 +54,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="backends\imgui_impl_dx9.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="backends\imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu\Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
