@@ -1,10 +1,16 @@
 #pragma once
 
-namespace Menu
+class Menu
 {
-	void Init(IDirect3DDevice9* pDevice);
-	void Draw();
-	void Shutdown();
+public:
+	~Menu();
 
-	inline bool isInit = false;
-}
+	void InitImgui(IDirect3DDevice9* pDevice, HWND hWnd);
+	void Draw();
+
+	bool IsInit() const { return init; }
+	void SetInit(bool newValue) { init = newValue; }
+
+private:
+	bool init = false;
+};

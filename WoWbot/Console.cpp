@@ -1,13 +1,14 @@
 #include "pch.h"
 #include "Console.h"
 
-void Console::Init()
+Console::Console()
 {
 	AllocConsole();
 	freopen_s(&fp, "CONOUT$", "w", stdout);
+	spdlog::debug("[Console] Opened");
 }
 
-void Console::Shutdown()
+Console::~Console()
 {
 	fclose(fp);
 	FreeConsole();

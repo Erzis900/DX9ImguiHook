@@ -6,54 +6,45 @@ static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 	DWORD pid;
 	GetWindowThreadProcessId(hWnd, &pid);
 
-	if (pid == lParam) {
-		D3DHelper::hWnd = hWnd;
+	if (pid == GetCurrentProcessId()) {
+		*(HWND*)lParam = hWnd;
 		return FALSE;
 	}
 
 	return TRUE;
 }
 
-BOOL D3DHelper::FetchData()
+HWND D3DHelper::GetWindowHandle()
 {
-	EnumWindows(EnumWindowsProc, GetCurrentProcessId());
-	if (!hWnd) {
-		spdlog::error("Window handle not found");
-		return false;
-	}
+	HWND hWnd = NULL;
+	EnumWindows(EnumWindowsProc, (LPARAM)&hWnd);
 
-	if (!FetchEndScene()) {
-		spdlog::error("EndScene fetch failed");
-		return false;
-	}
-	
-	return true;
+	return hWnd;
 }
 
-BOOL D3DHelper::FetchEndScene()
+EndSceneT D3DHelper::GetEndScene()
 {
 	IDirect3D9* d3dInterface = Direct3DCreate9(D3D_SDK_VERSION);
 	if (!d3dInterface)
-		return FALSE;
+		return NULL;
 
 	D3DPRESENT_PARAMETERS d3dPp = {};
 	d3dPp.Windowed = TRUE;
 	d3dPp.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dPp.hDeviceWindow = hWnd;
+	d3dPp.hDeviceWindow = GetWindowHandle();
 
 	LPDIRECT3DDEVICE9 d3dDevice = NULL;
 
 	if (FAILED(d3dInterface->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, d3dPp.hDeviceWindow, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dPp, &d3dDevice)))
 	{
 		d3dInterface->Release();
-		return FALSE;
+		return NULL;
 	}
 
 	uintptr_t* vTable = *reinterpret_cast<uintptr_t**>(d3dDevice);
-	D3DHelper::endScene = reinterpret_cast<EndSceneT>(vTable[END_SCENE_INDEX]);
-
+	
 	d3dDevice->Release();
 	d3dInterface->Release();
 
-	return TRUE;
+	return (EndSceneT)vTable[END_SCENE_INDEX];
 }

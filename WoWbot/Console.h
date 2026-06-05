@@ -1,9 +1,11 @@
 #pragma once
 
-namespace Console
+class Console
 {
-	void Init();
-	void Shutdown();
+public:
+	Console();
+	~Console();
 
-	inline FILE* fp;
-}
+private:
+	FILE* fp = NULL;
+};
