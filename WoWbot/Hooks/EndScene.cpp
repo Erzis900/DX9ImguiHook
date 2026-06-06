@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "HookManager.h"
+#include <iostream>
 
 HRESULT HookManager::OnEndScene(IDirect3DDevice9* pDevice)
 {
@@ -14,6 +15,7 @@ HRESULT HookManager::OnEndScene(IDirect3DDevice9* pDevice)
 		menu.SetInit(true);
 	}
 
+	spdlog::debug("test");
 	menu.Draw();
 
 	return endScene(pDevice);

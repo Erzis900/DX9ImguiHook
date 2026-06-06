@@ -4,6 +4,7 @@
 Application::Application()
 	:hookManager(menu)
 {
+	spdlog::set_level(spdlog::level::debug);
 }
 
 void Application::Run()
