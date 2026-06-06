@@ -3,7 +3,7 @@
 
 static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 {
-	DWORD pid;
+	DWORD pid = NULL;
 	GetWindowThreadProcessId(hWnd, &pid);
 
 	if (pid == GetCurrentProcessId()) {
@@ -14,7 +14,7 @@ static BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 	return TRUE;
 }
 
-HWND D3DHelper::GetWindowHandle()
+static HWND GetWindowHandle()
 {
 	HWND hWnd = NULL;
 	EnumWindows(EnumWindowsProc, (LPARAM)&hWnd);
@@ -42,9 +42,10 @@ EndSceneT D3DHelper::GetEndScene()
 	}
 
 	uintptr_t* vTable = *reinterpret_cast<uintptr_t**>(d3dDevice);
+	EndSceneT endScene = (EndSceneT)vTable[END_SCENE_INDEX];
 	
 	d3dDevice->Release();
 	d3dInterface->Release();
 
-	return (EndSceneT)vTable[END_SCENE_INDEX];
+	return endScene;
 }

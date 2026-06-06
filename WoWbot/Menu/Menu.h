@@ -10,7 +10,10 @@ public:
 
 	bool IsInit() const { return init; }
 	void SetInit(bool newValue) { init = newValue; }
+	void Toggle() { open = !open; }
+	bool IsOpen() const { return open; }
 
 private:
 	bool init = false;
+	bool open = true;
 };

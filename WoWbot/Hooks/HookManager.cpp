@@ -1,20 +1,27 @@
 #include "pch.h"
 #include "HookManager.h"
+#include <iostream>
 
-static HookManager* g_hookManager = nullptr;
+static HookManager* g_hookManager = NULL;
 
 static HRESULT __stdcall EndSceneDetour(IDirect3DDevice9* pDevice) {
 	return g_hookManager->OnEndScene(pDevice);
 }
 
+LRESULT __stdcall WndProcDetour(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	return g_hookManager->OnWndProc(hWnd, msg, wParam, lParam);
+}
+
 HookManager::HookManager(Menu& menu)
 	:menu(menu)
 {
-	g_hookManager = this;
 	endScene = D3DHelper::GetEndScene();
 
 	if (!endScene)
 		return;
+
+	g_hookManager = this;
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
@@ -24,22 +31,16 @@ HookManager::HookManager(Menu& menu)
 
 HookManager::~HookManager()
 {
-	g_hookManager = nullptr;
+	if (!g_hookManager) {
+		return;
+	}
+
+	SetWindowLongPtr(focusWindow, GWLP_WNDPROC, (LONG_PTR)wndProc);
+
+	g_hookManager = NULL;
 
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
 	DetourDetach(&(PVOID&)endScene, EndSceneDetour);
 	DetourTransactionCommit();
-}
-
-HRESULT HookManager::OnEndScene(IDirect3DDevice9* pDevice)
-{
-	if (!menu.IsInit()) {
-		menu.InitImgui(pDevice, D3DHelper::GetWindowHandle());
-		menu.SetInit(true);
-	}
-
-	menu.Draw();
-
-	return endScene(pDevice);
 }

@@ -176,7 +176,6 @@
     <ClInclude Include="Hooks\HookManager.h" />
     <ClInclude Include="Menu\Menu.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Hooks\WndProc.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -189,6 +188,7 @@
     <ClCompile Include="Console.cpp" />
     <ClCompile Include="D3D\D3DHelper.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Hooks\EndScene.cpp" />
     <ClCompile Include="Hooks\HookManager.cpp" />
     <ClCompile Include="Menu\Menu.cpp" />
     <ClCompile Include="pch.cpp">

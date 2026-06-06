@@ -7,5 +7,4 @@ using EndSceneT = HRESULT(__stdcall*)(IDirect3DDevice9*);
 namespace D3DHelper
 {
 	EndSceneT GetEndScene();
-	HWND GetWindowHandle();
 }

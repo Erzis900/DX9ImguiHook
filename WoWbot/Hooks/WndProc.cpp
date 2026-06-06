@@ -1,13 +1,16 @@
 #include "pch.h"
-#include "WndProc.h"
+#include "HookManager.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT HookManager::OnWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
-		return true;
+	if (msg == WM_KEYDOWN && wParam == VK_INSERT)
+		menu.Toggle();
 
-	// (Your code process Win32 messages)
-	// (You should discard mouse/keyboard messages in your game/engine when io.WantCaptureMouse/io.WantCaptureKeyboard are set.)
+	if (menu.IsOpen()) {
+		ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam);
+		return true;
+	}
+
+	return CallWindowProc(wndProc, hWnd, msg, wParam, lParam);
 }

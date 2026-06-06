@@ -6,8 +6,6 @@ void Menu::InitImgui(IDirect3DDevice9* pDevice, HWND hWnd)
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
 
 	ImGui_ImplWin32_Init(hWnd);
 	ImGui_ImplDX9_Init(pDevice);
@@ -22,11 +20,17 @@ Menu::~Menu()
 
 void Menu::Draw()
 {
+	if (!open)
+		return;
+
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::ShowDemoWindow();
+	ImGuiIO& io = ImGui::GetIO();
+
+	ImGui::Begin("Test window");
+	ImGui::End();
 
 	ImGui::Render();
 	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
