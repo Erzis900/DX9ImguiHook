@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "HookManager.h"
-#include <iostream>
 
 static HookManager* g_hookManager = NULL;
 

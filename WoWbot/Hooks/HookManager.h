@@ -1,6 +1,6 @@
 #pragma once
-#include "../D3D/D3DHelper.h"
-#include "../Menu/Menu.h"
+#include "D3D/D3DHelper.h"
+#include "Menu/Menu.h"
 
 LRESULT __stdcall WndProcDetour(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -13,10 +13,13 @@ public:
 	HRESULT OnEndScene(IDirect3DDevice9* device);
 	LRESULT OnWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+	bool IsUnload() const { return unload; }
 private:
 	HWND focusWindow = NULL;
 	EndSceneT endScene = NULL;
 	WNDPROC wndProc = NULL;
 
 	Menu& menu;
+
+	bool unload = false;
 };

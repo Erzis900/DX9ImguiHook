@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "HookManager.h"
-#include <iostream>
 
 HRESULT HookManager::OnEndScene(IDirect3DDevice9* pDevice)
 {
+	if (unload)
+		return endScene(pDevice);
+
 	if (!menu.IsInit()) {
 		D3DDEVICE_CREATION_PARAMETERS params = {};
 		pDevice->GetCreationParameters(&params);
@@ -15,7 +17,6 @@ HRESULT HookManager::OnEndScene(IDirect3DDevice9* pDevice)
 		menu.SetInit(true);
 	}
 
-	spdlog::debug("test");
 	menu.Draw();
 
 	return endScene(pDevice);

@@ -9,11 +9,8 @@ Application::Application()
 
 void Application::Run()
 {
-	while (running)
+	while (!hookManager.IsUnload())
 	{
-		if (GetAsyncKeyState(VK_END) & 1)
-			running = false;
-
 		Sleep(50);
 	}
 }

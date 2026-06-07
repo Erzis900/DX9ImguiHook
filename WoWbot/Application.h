@@ -13,6 +13,4 @@ private:
 	Console console;
 	HookManager hookManager;
 	Menu menu;
-
-	bool running = true;
 };

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Menu.h"
-#include "../D3D/D3DHelper.h"
+#include "D3D/D3DHelper.h"
 
 void Menu::InitImgui(IDirect3DDevice9* pDevice, HWND hWnd)
 {
@@ -26,8 +26,6 @@ void Menu::Draw()
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-
-	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::Begin("Test window");
 	ImGui::End();
