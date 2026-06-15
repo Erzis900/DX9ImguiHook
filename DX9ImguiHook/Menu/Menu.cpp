@@ -27,8 +27,7 @@ void Menu::Draw()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::Begin("Test window");
-	ImGui::End();
+	ImGui::ShowDemoWindow();
 
 	ImGui::Render();
 	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());

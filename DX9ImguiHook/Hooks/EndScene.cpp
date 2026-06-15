@@ -17,6 +17,7 @@ HRESULT HookManager::OnEndScene(IDirect3DDevice9* pDevice)
 		menu.SetInit(true);
 	}
 
+	spdlog::debug("Hello from EndScene hook, logged by spdlog");
 	menu.Draw();
 
 	return endScene(pDevice);

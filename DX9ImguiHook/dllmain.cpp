@@ -1,7 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
 #include "Application.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
 
 static void RunApplication()
 {
